@@ -8,7 +8,7 @@ This app helps users to search for nearby restaurants.
   - [ ] Fetch
   - [ ] Store in database
 - [ ] Google map
-  - [ ] Implement google map
+  - [x] Implement google map
   - [ ] Move google map to current location
   - [ ] Plot points in the map
 - [ ] Fetch 1000 restaurants closest to current location
