@@ -14,3 +14,5 @@ This app helps users to search for nearby restaurants.
 - [ ] Fetch 1000 restaurants closest to current location
   - [ ] Find API to get nearby restaurants details
 - [ ] List last 10 locations
+- [ ] Share local.properties file containing API keys
+- [ ] Create CI for building APK and releasing? or share built APK file
