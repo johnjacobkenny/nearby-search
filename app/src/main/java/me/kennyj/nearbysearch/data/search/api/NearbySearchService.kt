@@ -1,6 +1,6 @@
-package me.kennyj.nearbysearch.data.api
+package me.kennyj.nearbysearch.data.search.api
 
-import me.kennyj.nearbysearch.data.entities.NearbyRestaurantResponse
+import me.kennyj.nearbysearch.data.search.entities.NearbyRestaurantResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,4 +1,4 @@
-package me.kennyj.nearbysearch.data.entities
+package me.kennyj.nearbysearch.data.search.entities
 
 data class Geometry(
     val location: Location,

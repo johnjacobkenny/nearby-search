@@ -3,9 +3,9 @@ package me.kennyj.nearbysearch.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -50,14 +50,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             listenForLocationUpdates()
         }
 
-        binding.fabSearch.setOnClickListener {
-            if (currentLocation != null)
-                viewModel.getNearbySearchResponse(currentLocation!!)
+        binding.apply {
+            fabSearch.setOnClickListener {
+                if (currentLocation != null)
+                    viewModel.getNearbySearchResponse(currentLocation!!)
+            }
 
-        }
+            fabHome.setOnClickListener {
+                viewModel.setState(AppState.VIEW_CURRENT_LOCATION)
+            }
 
-        binding.fabHome.setOnClickListener {
-            viewModel.setState(AppState.VIEW_CURRENT_LOCATION)
+            fabHistory.setOnClickListener {
+                viewModel.getLocationHistory()
+            }
         }
 
         viewModel.appState.observe(this) {
@@ -68,13 +73,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 AppState.VIEW_CURRENT_LOCATION -> {
                     binding.fabSearch.visibility = View.VISIBLE
                     binding.fabHome.visibility = View.INVISIBLE
+                    binding.rvHistory.visibility = View.INVISIBLE
                     moveMapToCurrentLocation()
                 }
                 AppState.SEARCHING_RESTAURANTS -> {
+                    binding.rvHistory.visibility = View.INVISIBLE
                     binding.fabSearch.visibility = View.INVISIBLE
-                    Toast.makeText(this@MapsActivity, "Searching for restaurants", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MapsActivity,
+                        "Searching for restaurants",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewModel.addLocation(currentLocation!!)
                 }
                 AppState.VIEW_RESTAURANTS -> {
+                    binding.rvHistory.visibility = View.INVISIBLE
                     binding.fabSearch.visibility = View.INVISIBLE
                     mMap?.clear()
                     val latLngBoundsBuilder = LatLngBounds.Builder()
@@ -95,7 +108,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.fabHome.visibility = View.VISIBLE
                     }
                 }
-                AppState.VIEW_HISTORY -> {}
+                AppState.LOADING_HISTORY -> {
+
+                }
+                AppState.VIEW_HISTORY -> {
+                    binding.rvHistory.visibility = View.VISIBLE
+                    val data = viewModel.locationHistory
+                    Log.d(TAG, "onCreate: $data")
+                    if (data != null) {
+                        val adapter = HistoryListAdapter(data)
+                        binding.rvHistory.adapter = adapter
+                    } else {
+                        Toast.makeText(this@MapsActivity, "No entries in history", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 else -> {}
             }
         }
@@ -162,6 +188,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 //          wanted to do a fade in animation, but didn't get time
             delay(3000)
             binding.fabSearch.visibility = View.VISIBLE
+            binding.fabHistory.visibility = View.VISIBLE
         }
     }
 }

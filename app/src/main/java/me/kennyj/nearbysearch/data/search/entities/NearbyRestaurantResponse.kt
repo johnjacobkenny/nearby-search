@@ -1,4 +1,4 @@
-package me.kennyj.nearbysearch.data.entities
+package me.kennyj.nearbysearch.data.search.entities
 
 data class NearbyRestaurantResponse(
     val html_attributions: List<Any>,

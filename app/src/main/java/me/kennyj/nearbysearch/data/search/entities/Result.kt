@@ -1,4 +1,4 @@
-package me.kennyj.nearbysearch.data.entities
+package me.kennyj.nearbysearch.data.search.entities
 
 data class Result(
     val business_status: String,

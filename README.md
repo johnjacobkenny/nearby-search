@@ -4,10 +4,10 @@ This app helps users to search for nearby restaurants.
 
 
 ## Technical requirements
-- [ ] Current location
+- [x] Current location
   - [x] Fetch
-  - [ ] Store in database
-  - [ ] List last 10 locations
+  - [x] Store in database
+  - [x] List last 10 locations
 - [x] Google map
   - [x] Implement google map
   - [x] Move google map to current location
@@ -16,5 +16,5 @@ This app helps users to search for nearby restaurants.
   - [x] Find API to get nearby restaurants details
   - [ ] Implement pagination to fetch 1000 results
 - [ ] Dependency injection
-- [ ] Share local.properties file containing API keys
+- [x] Share local.properties file containing API keys
 - [ ] Create CI for building APK and releasing? or share built APK file
