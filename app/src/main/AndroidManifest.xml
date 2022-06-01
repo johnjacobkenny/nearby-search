@@ -24,7 +24,7 @@
             android:value="${PLACES_API_KEY}" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".presentation.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>
